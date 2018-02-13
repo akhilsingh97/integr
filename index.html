@@ -1,0 +1,353 @@
+<html>
+    <head>
+        <title>Contact Form</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+        <link href='custom.css' rel='stylesheet' type='text/css'>
+        <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    </head>
+    <body ng-app="myApp">
+
+        <div ng-controller="AppController as ctrl" class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8 col-lg-offset-2">
+
+                    <h1>Sample Contact Application</h1>
+
+                     <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="#/about"><i class="fa fa-shield"></i> About</a></li>
+                  
+                </ul>
+
+
+               
+
+                    <form class="form-horizontal" ng-submit="ctrl.submit()" name="userForm" role="form" novalidate>
+                        <input type="hidden" ng-model="ctrl.user.id" />
+        <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }" >
+            <label  class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-6">
+                <input type="text" name="name" class="form-control" ng-model="ctrl.user.name" required pattern=".{2,}" />
+                <div class="has-error" ng-show="userForm.$dirty">
+                                      <span ng-show="userForm.name.$error.required">This is a required field</span>
+                                      
+                                      <span ng-show="userForm.name.$invalid && !userForm.name.$pristine">This field is invalid </span>
+                                  </div>
+            </div>
+            <div class="col-sm-3"></div>
+
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : userForm.address.$invalid && !userForm.address.$pristine }">
+            <label class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-6">
+                <input type="text" name="address" class="form-control" ng-model="ctrl.user.address" required />
+                <div class="has-error" ng-show="userForm.$dirty">
+                                      <span ng-show="userForm.address.$error.required">This is a required field</span>
+                                      
+                                      <span ng-show="userForm.address.$invalid && !userForm.address.$pristine">This field is invalid </span>
+                                  </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error' : userForm.dob.$invalid && !userForm.dob.$pristine }">
+            <label class="col-sm-3 control-label">DoB</label>
+            <div class="col-sm-6">
+                <input type="date" id="dob" name="dob" class="form-control" ng-model="ctrl.user.DoB" required />
+                <div class="has-error" ng-show="userForm.$dirty">
+                                      <span ng-show="userForm.dob.$error.required">This is a required field</span>
+                                      
+                                      <span ng-show="userForm.dob.$invalid && !userForm.dob.$pristine">This field is invalid </span>
+                                  </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        
+        <div class="form-group">
+            <label for="gender" class="col-sm-3 control-label">Gender</label>
+            <div class="col-sm-2">
+                <select name="gender" class="form-control" ng-model="ctrl.user.gender" required>
+                    
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <div class="has-error" ng-show="userForm.$dirty">
+                                      <span ng-show="userForm.gender.$error.required">This is a required field</span>
+                                      
+                                      <span ng-show="userForm.gender.$invalid && !userForm.gender.$pristine">This field is invalid </span>
+                                  </div>
+            </div>
+            <div class="col-sm-7"></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Age</label>
+            <div class="col-sm-6">
+                <input type="number" class="form-control" name="age" ng-model="ctrl.user.age" required />
+                <div class="has-error" ng-show="userForm.$dirty">
+                                      <span ng-show="userForm.name.$error.required">This is a required field</span>
+                                      
+                                      <span ng-show="userForm.name.$invalid && !userForm.name.$pristine">This field is invalid </span>
+                                  </div>
+            </div>
+            <div class="col-sm-3"></div>
+
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+            <label class="col-sm-3 control-label">Email ID</label>
+            <div class="col-sm-6">
+                <input type="email" class="form-control" name="email" ng-model="ctrl.user.email" required="" />
+                <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+            </div>
+            <div class="col-sm-3"></div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Phone Number</label>
+            <div class="col-sm-6">
+                <input type="number" name="phn" class="form-control" ng-model="ctrl.user.phn" required ng-minlength="10" ng-maxlength="10" />
+                <div class="has-error" ng-show="userForm.$dirty">
+                                      <span ng-show="userForm.phn.$error.required">This is a required field</span>
+                                      
+                                      <span ng-show="userForm.phn.$invalid && !userForm.phn.$pristine">This field is invalid </span>
+                                      <span
+                                      ng-show="((userForm.phn.$error.minlength ||
+                           userForm.phn.$error.maxlength) && 
+                           userForm.phn.$dirty) ">
+                           phone number should be 10 digits</span>
+                                  </div>
+
+            </div>
+            <div class="col-sm-3"></div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">State</label>
+            <div class="col-sm-3">
+                <select class="form-control" name="state" ng-model="ctrl.user.state" required>
+                    <option value="male">Andhra Pradesh </option>
+                    <option value="male">Arunachal Pradesh </option>
+                    <option value="male">Andhra Pradesh </option>
+
+                    <option value="male">Assam </option>
+                    <option value="male">Bihar </option>
+                    <option value="male">Goa </option>
+                    <option value="male">Gujarat </option>
+                    <option value="male">Haryana</option>
+                    <option value="male">Himachal Pradesh </option>
+                    <option value="male">Jammu & Kashmir </option>
+                    <option value="male">Karnataka </option>
+                    <option value="male">Kerala </option>
+                    <option value="male">Madhya Pradesh </option>
+                    <option value="male">Maharashtra </option>
+
+                    <option value="male">Manipur </option>
+                    <option value="male">Meghalaya </option>
+                    <option value="male">Mizoram </option>
+                    <option value="male">Nagaland</option>
+                    <option value="male">Orissa </option>
+                    <option value="male">Punjab </option>
+                    <option value="male">Rajasthan</option>
+                    <option value="male">Sikkim  </option>
+                    <option value="male">Tamil Nadu </option>
+                    <option value="male">Tripura </option>
+                    <option value="male">Uttar Pradesh </option>
+                    <option value="male">West Bengal </option>
+                    <option value="male">Chhattisgarh </option>
+                    <option value="male">Uttarakhand</option>
+                    <option value="male">Jharkhand</option>
+                    <option value="male">Telangana</option>
+
+
+                    
+                </select>
+                <div class="has-error" ng-show="userForm.$dirty">
+                                      <span ng-show="userForm.state.$error.required">This is a required field</span>
+                                      
+                                      <span ng-show="userForm.state.$invalid && !userForm.state.$pristine">This field is invalid </span>
+                                  </div>
+            </div>
+            <div class="col-sm-7"></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Zip</label>
+            <div class="col-sm-6">
+                <input type="text" name="zip" class="form-control" ng-minlength="6" ng-maxlength="6" ng-model="ctrl.user.zip" required />
+                <div class="has-error" ng-show="userForm.$dirty">
+                                      <span ng-show="userForm.zip.$error.required">This is a required field</span>
+                                      
+                                      <span ng-show="userForm.zip.$invalid && !userForm.zip.$pristine">This field is invalid </span>
+                                       <span
+                                      ng-show="((userForm.zip.$error.minlength ||
+                           userForm.zip.$error.maxlength) && 
+                           userForm.zip.$dirty) ">
+                           zip should be 6 digits</span>
+                                  </div>
+            </div>
+            <div class="col-sm-3"></div>
+
+        </div>
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-sm-6"></div>
+                          <div class="form-actions floatRight">
+                              <input type="submit"  value="{{!ctrl.user.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="userForm.$invalid">
+                              <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="userForm.$pristine">Reset Form</button>
+                          </div>
+                      </div>
+        
+        <!-- <input type="submit" value="Save" class="btn btn-primary col-sm-offset-3" />
+        <input type="reset" value="Reset" ng-click="resetForm()" > -->
+    </form>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+              <div class="panel-heading"><span class="lead">List of Users </span></div>
+              <div class="tablecontainer">
+                  <table class="table table-hover display" id="example"  cellspacing="0" width="100%">
+                      <thead>
+                          <tr>
+                              <th>ID.</th>
+                              <th>Name</th>
+                              
+                              <th>Email</th>
+                              <th width="100">
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="u in ctrl.userrr">
+                              <td><span ng-bind="u.id"></span></td>
+                              <td><span ng-bind="u.name"></span></td>
+                              
+                              <td><span ng-bind="u.email"></span></td>
+                              <td>
+                              <button type="button" ng-click="ctrl.edit(u.id)" class="btn btn-success custom-width">Edit</button>  
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+
+        </div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      
+        <script src="http://code.angularjs.org/1.2.6/angular.js"></script> 
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28//angular-route.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        
+
+        <script>
+
+            $(document).ready(function() {
+    $('#example').DataTable();
+} );
+
+          var app= angular.module('myApp', ['ngRoute']);
+         
+         app.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl : "index.html",
+        controller:"AppController"
+    })
+    .when("#/about", {
+        templateUrl : 'about.html',
+                controller  : 'aboutController'
+    })
+    .otherwise({
+                redirectTo: "/"
+            });
+    
+});
+          app.controller('AppController', ['$scope','$window', function($scope, $window) {
+              var self = this;
+              self.user={id:null,name:'',address:'',dob:'', gender:'', age:'',phone:'', state:'', zip:'', email:''};
+              self.id = 1;
+               
+              self.users = [
+                      
+              ];
+
+              self.userss = localStorage.getItem('todos');
+              self.userrr= JSON.parse(self.userss)
+               
+              self.submit = function() {
+                  if(self.user.id === null){
+                      self.user.id = self.id++;
+                      console.log('Saving New User', self.user);    
+                      // self.userk= JSON.stringify(self.user)
+                      self.users.push(self.user)
+
+                      localStorage.setItem('todos', JSON.stringify(self.users));
+
+
+                      //Or send to server, we will do it in when handling services
+                  }else{
+                      for(var i = 0; i < self.userrr.length; i++){
+                        console.log(self.userrr)
+                          if(self.userrr[i].id === self.user.id) {
+                            self.userrr[i] = self.user;
+                            break;
+                          }
+                      }
+                     console.log('User updated with id ', self.user.id);
+                  }
+                  
+                  console.log(self.userss)
+                 
+
+                  self.reset();
+              };
+               
+              self.edit = function(id){
+                  console.log('id to be edited', id);
+                  for(var i = 0; i < self.userrr.length; i++){
+                      if(self.userrr[i].id === id) {
+                         self.user = angular.copy(self.userrr[i]);
+                         break;
+                      }
+                  }
+              }
+               
+            
+               
+              self.reset = function(){
+                  self.user={id:null,name:'',address:'',email:''};
+                  $scope.userForm.$setPristine(); //reset Form
+              }
+ 
+      }]);
+
+
+
+
+
+          app.controller('aboutController', function($scope) {
+        $scope.message = 'Look! I am an about page.';
+    });
+
+  </script>
+
+        
+    </body>
+</html>
