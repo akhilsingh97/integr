@@ -14,16 +14,18 @@
 
             <div class="row">
 
-                <div class="col-lg-8 col-lg-offset-2">
-
-                    <h1>Sample Contact Application</h1>
-
-                     <ul class="nav navbar-nav navbar-right">
+              <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                    <li><a href="#/about"><i class="fa fa-shield"></i> About</a></li>
+                    <li><a href="/about"><i class="fa fa-shield"></i> About</a></li>
                   
                 </ul>
 
+
+                <div class="col-lg-8 col-lg-offset-2">
+
+                    <h1 style="margin-left: 17%">Sample Contact Application</h1>
+
+                     
 
                
 
@@ -222,8 +224,8 @@
             <div class="panel panel-default">
                 <!-- Default panel contents -->
               <div class="panel-heading"><span class="lead">List of Users </span></div>
-              <div class="tablecontainer">
-                  <table class="table table-hover display" id="example"  cellspacing="0" width="100%">
+              <div class="tablecontainer table-responsive">
+                  <table class="table mb-0 table-striped m-b-0 f-14 zero-configuration" id="example"  cellspacing="0" width="100%">
                       <thead>
                           <tr>
                               <th>ID.</th>
@@ -234,7 +236,7 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr ng-repeat="u in ctrl.userrr">
+                          <tr ng-repeat="u in ctrl.userrr track by $index">
                               <td><span ng-bind="u.id"></span></td>
                               <td><span ng-bind="u.name"></span></td>
                               
@@ -254,6 +256,7 @@
         <script src="http://code.angularjs.org/1.2.6/angular.js"></script> 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28//angular-route.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap4.min.js"></script>
         
 
         <script>
@@ -270,7 +273,7 @@
         templateUrl : "index.html",
         controller:"AppController"
     })
-    .when("#/about", {
+    .when("/about/", {
         templateUrl : 'about.html',
                 controller  : 'aboutController'
     })
@@ -292,16 +295,22 @@
               self.userrr= JSON.parse(self.userss)
                
               self.submit = function() {
+               
                   if(self.user.id === null){
-                      self.user.id = self.id++;
-                      console.log('Saving New User', self.user);    
+                    self.id++;
+                     self.users=self.userrr;
+                      self.user.id = self.id;
+                      console.log('Saving New User', self.user);
+                      console.log(self.users)    
                       // self.userk= JSON.stringify(self.user)
                       self.users.push(self.user)
+                      console.log(self.users)
+
 
                       localStorage.setItem('todos', JSON.stringify(self.users));
 
 
-                      //Or send to server, we will do it in when handling services
+                    
                   }else{
                       for(var i = 0; i < self.userrr.length; i++){
                         console.log(self.userrr)
@@ -311,9 +320,12 @@
                           }
                       }
                      console.log('User updated with id ', self.user.id);
+
                   }
+
+                  // self.userrr.push(JSON.parseJSON.stringify(self.users))
                   
-                  console.log(self.userss)
+                  console.log(self.userrr)
                  
 
                   self.reset();
@@ -343,6 +355,7 @@
 
 
           app.controller('aboutController', function($scope) {
+            console.log("aaya")
         $scope.message = 'Look! I am an about page.';
     });
 
