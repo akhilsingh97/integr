@@ -321,7 +321,7 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr ng-repeat="u in ctrl.userrr track by $index">
+                          <tr ng-repeat="u in ctrl.user_json track by $index">
                               
                               <td><span ng-bind="u.name"></span></td>
                      
@@ -374,7 +374,7 @@
 });
           app.controller('AppController', ['$scope','$window', function($scope, $window) {
               var self = this;
-              self.max = new Date();
+             
               
 
 
@@ -386,14 +386,14 @@
                       
               ];
 
-              self.userss = localStorage.getItem('todos');
-              self.userrr= JSON.parse(self.userss)
-              if(self.userrr==null){
-                self.userrr=[]
+              self.user_temp = localStorage.getItem('users');
+              self.user_json= JSON.parse(self.user_temp)
+              if(self.user_json==null){
+                self.user_json=[]
               }
                
               self.submit = function() {
-
+                console.log(self.user.id)
                
                
                   if(self.user.id === null){
@@ -405,7 +405,7 @@
                     self.user.id = self.id++;
 
                     
-                     self.users=self.userrr;
+                     self.users=self.user_json;
                       
                       console.log('Saving New User', self.user);
                       console.log(self.users)    
@@ -417,25 +417,28 @@
                       localStorage.setItem('ids',JSON.stringify(self.id));
 
 
-                      localStorage.setItem('todos', JSON.stringify(self.users));
+                      localStorage.setItem('users', JSON.stringify(self.users));
 
 
                     
                   }else{
-                      for(var i = 0; i < self.userrr.length; i++){
-                        console.log(self.userrr)
-                          if(self.userrr[i].id === self.user.id) {
-                            self.userrr[i] = self.user;
+                    console.log(self.user_json.length)
+                      for(var i = 0; i < self.user_json.length; i++){
+                        console.log(self.user_json)
+                          if(self.user_json[i].id === self.user.id) {
+                            console.log(self.user)
+                            self.user_json[i] = self.user;
                             break;
                           }
                       }
                      console.log('User updated with id ', self.user.id);
+                     localStorage.setItem('users', JSON.stringify(self.user_json));
 
                   }
 
                   // self.userrr.push(JSON.parseJSON.stringify(self.users))
                   
-                  console.log(self.userrr)
+                  console.log(self.user_json)
 
                   if (confirm("Successfully added !")) {
                      $window.location.reload();
@@ -452,10 +455,10 @@
                
               self.edit = function(ids){
                   console.log('id to be edited', ids);
-                  for(var i = 0; i < self.userrr.length; i++){
-                    console.log(self.userrr[i].id)
-                      if(self.userrr[i].id === ids) {
-                         self.user = angular.copy(self.userrr[i]);
+                  for(var i = 0; i < self.user_json.length; i++){
+                    console.log(self.user_json[i].id)
+                      if(self.user_json[i].id === ids) {
+                         self.user = angular.copy(self.user_json[i]);
                          break;
                       }
                   }
